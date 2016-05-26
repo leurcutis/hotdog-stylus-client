@@ -11,6 +11,7 @@ function UsersController($http){
  self.newUser = {};
  self.deleteUser = deleteUser;
  self.showUser = showUser;
+ self.showUser = showUser;
 
   function getUsers() {
     $http

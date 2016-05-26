@@ -5,11 +5,12 @@ angular
 OutfitsController.$inject = ['$http'];
 
 function OutfitsController($http){
- var self = this;
- self.all = [];
- self.addOutfit = addOutfit;
- self.newOutfit = {};
- self.deleteOutfit = deleteOutfit;
+  var self = this;
+  self.all = [];
+  self.addOutfit = addOutfit;
+  self.newOutfit = {};
+  self.showOutfit = showOutfit;
+  self.deleteOutfit = deleteOutfit;
 
   function getOutfits() {
     $http
@@ -24,7 +25,7 @@ function OutfitsController($http){
 
   function showOutfit() {
     $http
-      .get('http://localhost:3000/api/outfits/' + outfit._id)
+      .get(baseUrl + '/api/outfits/' + outfit._id)
       .then(function(response) {
         console.log(response);
         self.all = response.data;
@@ -33,7 +34,7 @@ function OutfitsController($http){
 
   function addOutfit() {
     $http
-      .post('http://localhost:3000/api/outfits', self.newOutfit)
+      .post(baseUrl + '/api/outfits', self.newOutfit)
       .then(function(response) {
         console.log('add outfit running');
         getOutfits();
@@ -44,7 +45,7 @@ function OutfitsController($http){
 
   function deleteOutfit(outfit) {
     $http
-      .delete('http://localhost:3000/api/outfits/' + outfit._id)
+      .delete(baseUrl + '/api/outfits/' + outfit._id)
       .then(function(response) {
         console.log(response);
         var index = self.all.indexOf(outfit);

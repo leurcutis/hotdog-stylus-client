@@ -10,16 +10,31 @@
   <script src="js/app.js" charset="utf-8"></script>
   <script src="js/users_controller.js" charset="utf-8"></script>
   <script src="js/garments_controller.js" charset="utf-8"></script>
+  <script src="js/outfits_controller.js" charset="utf-8"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 
-<body ng-controller="GarmentsController as garments">
-
+<body>
 {{1+1}}
-<img ng-src="{{garments.sampleImage}}">
+
+  <div ng-controller="OutfitsController as outfits">
+  </div>
+
+
+  <div ng-controller="GarmentsController as garments">
+    <div id="outfit_builder">
+      <img ng-src="{{garments.currentChoice.imageUrl}}" class="currentChoice">
+    </div>
+    <ul ng-repeat="garment in garments.all">
+      <li ng-click="garments.select(garment)">
+        <img class="garment" ng-src="{{garment.imageUrl}}">
+      </li>
+    </ul>
+    <img ng-src="{{garments.sampleImage}}">
+  </div>
 
 </body>
 </html>

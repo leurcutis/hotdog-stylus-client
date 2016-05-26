@@ -4,17 +4,26 @@ angular
 
 GarmentsController.$inject = ['$http'];
 
-function GarmentsController($http){
- var self = this;
- self.all = [];
- self.addGarment = addGarment;
- self.newGarment = {};
- self.deleteGarment = deleteGarment;
- self.sampleImage = 'http://i.imgur.com/NC68JHO.jpg';
+  function GarmentsController($http){
+   var self = this;
+   self.currentChoice = {};
+   self.all = [];
+   self.addGarment = addGarment;
+   self.newGarment = {};
+   self.showGarment = showGarment;
+   // self.updateGarment = updateGarment;
+   self.deleteGarment = deleteGarment;
+   self.select = select;
+   // self.sampleImage = 'http://i.imgur.com/FaL2NBA.jpg';
+
+  function select(garment) {
+    self.currentChoice = garment;
+    console.log(self.currentChoice);
+  }
 
   function getGarments() {
     $http
-      .get('http://localhost:3000/api/garments')
+      .get(baseUrl + '/api/garments')
       .then(function(response) {
         console.log(response);
         self.all = response.data;
@@ -25,16 +34,25 @@ function GarmentsController($http){
 
   function showGarment() {
     $http
-      .get('http://localhost:3000/api/garments/' + garment._id)
+      .get(baseUrl + '/api/garments/' + garment._id)
       .then(function(response) {
         console.log(response);
         self.all = response.data;
     });
   }
 
+  // function updateGarment() {
+  //   $http
+  //     .get(baseUrl + '/api/garments' + garment._id)
+  //     .then(function(response) {
+  //       console.log(response);
+  //       self.all
+  //     })
+  // }
+
   function addGarment() {
     $http
-      .post('http://localhost:3000/api/garments', self.newGarment)
+      .post(baseUrl + '/api/garments', self.newGarment)
       .then(function(response) {
         console.log('add garment running');
         getGarments();
@@ -45,7 +63,7 @@ function GarmentsController($http){
 
   function deleteGarment(garment) {
     $http
-      .delete('http://localhost:3000/api/garments/' + garment._id)
+      .delete(baseUrl + '/api/garments/' + garment._id)
       .then(function(response) {
         console.log(response);
         var index = self.all.indexOf(garment);
